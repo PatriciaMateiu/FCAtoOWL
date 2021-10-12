@@ -1,0 +1,80 @@
+Prefix(:=<http://www.semanticweb.org/ontologies/pizza_ontology#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/ontologies/pizza_ontology>
+
+Declaration(Class(:calzone))
+Declaration(Class(:thick))
+Declaration(Class(:thin))
+Declaration(NamedIndividual(:alberginia))
+Declaration(NamedIndividual(:four-cheeses))
+Declaration(NamedIndividual(:frutti-di-mare))
+Declaration(NamedIndividual(:hawai))
+Declaration(NamedIndividual(:kebab))
+Declaration(NamedIndividual(:languedoc))
+Declaration(NamedIndividual(:lorraine))
+Declaration(NamedIndividual(:margherita))
+Declaration(NamedIndividual(:okonomi))
+Declaration(NamedIndividual(:quebec))
+Declaration(NamedIndividual(:regina))
+Declaration(NamedIndividual(:three-cheeses))
+
+############################
+#   Named Individuals
+############################
+
+# Individual: :alberginia (:alberginia)
+
+ClassAssertion(:thick :alberginia)
+
+# Individual: :four-cheeses (:four-cheeses)
+
+ClassAssertion(:thin :four-cheeses)
+
+# Individual: :frutti-di-mare (:frutti-di-mare)
+
+ClassAssertion(:thin :frutti-di-mare)
+
+# Individual: :hawai (:hawai)
+
+ClassAssertion(:thick :hawai)
+
+# Individual: :kebab (:kebab)
+
+ClassAssertion(:calzone :kebab)
+
+# Individual: :languedoc (:languedoc)
+
+ClassAssertion(:thin :languedoc)
+
+# Individual: :lorraine (:lorraine)
+
+ClassAssertion(:thin :lorraine)
+
+# Individual: :margherita (:margherita)
+
+ClassAssertion(:thin :margherita)
+
+# Individual: :okonomi (:okonomi)
+
+ClassAssertion(:calzone :okonomi)
+
+# Individual: :quebec (:quebec)
+
+ClassAssertion(:thick :quebec)
+
+# Individual: :regina (:regina)
+
+ClassAssertion(:thin :regina)
+
+# Individual: :three-cheeses (:three-cheeses)
+
+ClassAssertion(:thin :three-cheeses)
+
+
+)

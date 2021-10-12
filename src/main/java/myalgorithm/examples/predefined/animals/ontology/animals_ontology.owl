@@ -1,0 +1,77 @@
+Prefix(:=<http://www.semanticweb.org/ontologies/animals_ontology#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/ontologies/animals_ontology>
+
+Declaration(Class(:cartoon))
+Declaration(Class(:cat))
+Declaration(Class(:dog))
+Declaration(Class(:mammal))
+Declaration(Class(:real))
+Declaration(Class(:tortoise))
+Declaration(NamedIndividual(:Bobby))
+Declaration(NamedIndividual(:Garfield))
+Declaration(NamedIndividual(:Harriet))
+Declaration(NamedIndividual(:Snoopy))
+Declaration(NamedIndividual(:Socks))
+############################
+#   Classes
+############################
+
+# Class: :cartoon (:cartoon)
+
+SubClassOf(:cartoon :mammal)
+
+# Class: :cat (:cat)
+
+SubClassOf(:cat :mammal)
+
+# Class: :dog (:dog)
+
+SubClassOf(:dog :mammal)
+
+# Class: :tortoise (:tortoise)
+
+SubClassOf(:tortoise :real)
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: :Bobby (:Bobby)
+
+ClassAssertion(:dog :Bobby)
+ClassAssertion(:mammal :Bobby)
+ClassAssertion(:real :Bobby)
+
+# Individual: :Garfield (:Garfield)
+
+ClassAssertion(:cartoon :Garfield)
+ClassAssertion(:cat :Garfield)
+ClassAssertion(:mammal :Garfield)
+
+# Individual: :Harriet (:Harriet)
+
+ClassAssertion(:real :Harriet)
+ClassAssertion(:tortoise :Harriet)
+
+# Individual: :Snoopy (:Snoopy)
+
+ClassAssertion(:cartoon :Snoopy)
+ClassAssertion(:dog :Snoopy)
+ClassAssertion(:mammal :Snoopy)
+
+# Individual: :Socks (:Socks)
+
+ClassAssertion(:cat :Socks)
+ClassAssertion(:mammal :Socks)
+ClassAssertion(:real :Socks)
+
+
+)

@@ -1,0 +1,194 @@
+Prefix(:=<http://www.semanticweb.org/mateiupatricia/ontologies/family_ontology#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://www.semanticweb.org/mateiupatricia/ontologies/family_ontology>
+
+Declaration(Class(:doctor))
+Declaration(Class(:female))
+Declaration(Class(:lawyer))
+Declaration(Class(:male))
+Declaration(Class(:nurse))
+Declaration(Class(:painter))
+Declaration(Class(:person))
+Declaration(Class(:professor))
+Declaration(ObjectProperty(:hasChild))
+Declaration(ObjectProperty(:hasSibling))
+Declaration(ObjectProperty(:marriedTo))
+Declaration(NamedIndividual(:Alex))
+Declaration(NamedIndividual(:Alfred))
+Declaration(NamedIndividual(:Anna))
+Declaration(NamedIndividual(:Hanna))
+Declaration(NamedIndividual(:Hans))
+Declaration(NamedIndividual(:Heinrich))
+Declaration(NamedIndividual(:Heinz))
+Declaration(NamedIndividual(:Jan))
+Declaration(NamedIndividual(:Johanna))
+Declaration(NamedIndividual(:Katrin))
+Declaration(NamedIndividual(:Mandy))
+Declaration(NamedIndividual(:Maria))
+Declaration(NamedIndividual(:Markus))
+Declaration(NamedIndividual(:Miriam))
+Declaration(NamedIndividual(:Susi))
+############################
+#   Object Properties
+############################
+
+# Object Property: :hasChild (:hasChild)
+
+InverseFunctionalObjectProperty(:hasChild)
+AsymmetricObjectProperty(:hasChild)
+IrreflexiveObjectProperty(:hasChild)
+ObjectPropertyRange(:hasChild :doctor)
+ObjectPropertyRange(:hasChild :lawyer)
+ObjectPropertyRange(:hasChild :professor)
+
+# Object Property: :hasSibling (:hasSibling)
+
+SymmetricObjectProperty(:hasSibling)
+IrreflexiveObjectProperty(:hasSibling)
+ObjectPropertyRange(:hasSibling :doctor)
+ObjectPropertyRange(:hasSibling :lawyer)
+ObjectPropertyRange(:hasSibling :nurse)
+ObjectPropertyRange(:hasSibling :painter)
+ObjectPropertyRange(:hasSibling :professor)
+
+# Object Property: :marriedTo (:marriedTo)
+
+FunctionalObjectProperty(:marriedTo)
+InverseFunctionalObjectProperty(:marriedTo)
+SymmetricObjectProperty(:marriedTo)
+IrreflexiveObjectProperty(:marriedTo)
+ObjectPropertyRange(:marriedTo :doctor)
+ObjectPropertyRange(:marriedTo :lawyer)
+ObjectPropertyRange(:marriedTo :nurse)
+ObjectPropertyRange(:marriedTo :professor)
+
+
+
+############################
+#   Named Individuals
+############################
+
+# Individual: :Alex (:Alex)
+
+ClassAssertion(:male :Alex)
+ClassAssertion(:painter :Alex)
+ClassAssertion(:person :Alex)
+ObjectPropertyAssertion(:hasSibling :Alex :Hanna)
+
+# Individual: :Alfred (:Alfred)
+
+ClassAssertion(:doctor :Alfred)
+ClassAssertion(:male :Alfred)
+ClassAssertion(:person :Alfred)
+ObjectPropertyAssertion(:hasSibling :Alfred :Heinz)
+ObjectPropertyAssertion(:hasSibling :Alfred :Maria)
+ObjectPropertyAssertion(:marriedTo :Alfred :Katrin)
+
+# Individual: :Anna (:Anna)
+
+ClassAssertion(:female :Anna)
+ClassAssertion(:lawyer :Anna)
+ClassAssertion(:person :Anna)
+ObjectPropertyAssertion(:hasSibling :Anna :Susi)
+ObjectPropertyAssertion(:marriedTo :Anna :Jan)
+
+# Individual: :Hanna (:Hanna)
+
+ClassAssertion(:female :Hanna)
+ClassAssertion(:painter :Hanna)
+ClassAssertion(:person :Hanna)
+ObjectPropertyAssertion(:hasSibling :Hanna :Alex)
+
+# Individual: :Hans (:Hans)
+
+ClassAssertion(:lawyer :Hans)
+ClassAssertion(:male :Hans)
+ClassAssertion(:person :Hans)
+ObjectPropertyAssertion(:hasChild :Hans :Katrin)
+ObjectPropertyAssertion(:marriedTo :Hans :Johanna)
+
+# Individual: :Heinrich (:Heinrich)
+
+ClassAssertion(:male :Heinrich)
+ClassAssertion(:person :Heinrich)
+ClassAssertion(:professor :Heinrich)
+ObjectPropertyAssertion(:marriedTo :Heinrich :Susi)
+
+# Individual: :Heinz (:Heinz)
+
+ClassAssertion(:male :Heinz)
+ClassAssertion(:person :Heinz)
+ClassAssertion(:professor :Heinz)
+ObjectPropertyAssertion(:hasChild :Heinz :Anna)
+ObjectPropertyAssertion(:hasSibling :Heinz :Alfred)
+ObjectPropertyAssertion(:hasSibling :Heinz :Maria)
+
+# Individual: :Jan (:Jan)
+
+ClassAssertion(:lawyer :Jan)
+ClassAssertion(:male :Jan)
+ClassAssertion(:person :Jan)
+ObjectPropertyAssertion(:hasChild :Jan :Alfred)
+ObjectPropertyAssertion(:hasChild :Jan :Heinz)
+ObjectPropertyAssertion(:hasChild :Jan :Maria)
+ObjectPropertyAssertion(:marriedTo :Jan :Anna)
+
+# Individual: :Johanna (:Johanna)
+
+ClassAssertion(:female :Johanna)
+ClassAssertion(:nurse :Johanna)
+ClassAssertion(:person :Johanna)
+ObjectPropertyAssertion(:hasSibling :Johanna :Mandy)
+ObjectPropertyAssertion(:marriedTo :Johanna :Hans)
+
+# Individual: :Katrin (:Katrin)
+
+ClassAssertion(:doctor :Katrin)
+ClassAssertion(:female :Katrin)
+ClassAssertion(:person :Katrin)
+ObjectPropertyAssertion(:marriedTo :Katrin :Alfred)
+
+# Individual: :Mandy (:Mandy)
+
+ClassAssertion(:female :Mandy)
+ClassAssertion(:person :Mandy)
+ClassAssertion(:professor :Mandy)
+ObjectPropertyAssertion(:hasSibling :Mandy :Johanna)
+
+# Individual: :Maria (:Maria)
+
+ClassAssertion(:doctor :Maria)
+ClassAssertion(:female :Maria)
+ClassAssertion(:person :Maria)
+ObjectPropertyAssertion(:hasSibling :Maria :Alfred)
+ObjectPropertyAssertion(:hasSibling :Maria :Heinz)
+
+# Individual: :Markus (:Markus)
+
+ClassAssertion(:lawyer :Markus)
+ClassAssertion(:male :Markus)
+ClassAssertion(:person :Markus)
+
+# Individual: :Miriam (:Miriam)
+
+ClassAssertion(:female :Miriam)
+ClassAssertion(:nurse :Miriam)
+ClassAssertion(:person :Miriam)
+ObjectPropertyAssertion(:hasChild :Miriam :Mandy)
+
+# Individual: :Susi (:Susi)
+
+ClassAssertion(:female :Susi)
+ClassAssertion(:lawyer :Susi)
+ClassAssertion(:person :Susi)
+ObjectPropertyAssertion(:hasSibling :Susi :Anna)
+ObjectPropertyAssertion(:marriedTo :Susi :Heinrich)
+
+
+)

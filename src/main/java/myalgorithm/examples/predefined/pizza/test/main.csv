@@ -1,0 +1,5 @@
+;person;female;male;hasSibling,Alfred;hasSibling,Heinz;hasSibling,Maria;hasSibling,Dan
+Alfred;X; ;X; ;X;X; 
+Heinz;X; ;X;X; ;X; 
+Maria;X;X; ;X;X; ; 
+Dan;X; ;X; ; ; ; 
