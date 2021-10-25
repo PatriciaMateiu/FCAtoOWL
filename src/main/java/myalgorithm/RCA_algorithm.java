@@ -8,6 +8,7 @@ import myalgorithm.galatea.*;
 import myalgorithm.galatea.composite.Facet;
 import myalgorithm.galatea.io.ParseCSVContext;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
+import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
@@ -16,7 +17,6 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -41,8 +41,8 @@ public class RCA_algorithm {
     private Map<String, Integer> ent = new HashMap<>();
     private List<String> symmetric = new ArrayList<>();
     private List<String> asymmetric = new ArrayList<>();
-    private List<String> functional = new ArrayList<>();
-    private List<String> inverseFunctional = new ArrayList<>();
+    private List<String> nonfunctional = new ArrayList<>();
+    private List<String> nonInverseFunctional = new ArrayList<>();
     private List<String> reflexive = new ArrayList<>();
     private List<String> irreflexive = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class RCA_algorithm {
     private Context processTextFile(String path, String name, Context context) throws IOException {
         ParseTextFiles parseTextFiles = new ParseTextFiles(path, name, context);
         parseTextFiles.parse();
-        if(parseTextFiles.isSymmetric()){
+        /*if(parseTextFiles.isSymmetric()){
             symmetric.add(name);
         }
         if(parseTextFiles.isFunctional()){
@@ -82,7 +82,7 @@ public class RCA_algorithm {
 
         if(!symmetric.contains(name)){
             asymmetric.add(name);
-        }
+        }*/
         return parseTextFiles.getContext();
     }
 
@@ -305,7 +305,6 @@ public class RCA_algorithm {
 
     public void createOntology(String path, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, InterruptedException {
 
-
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
 
         IRI ontologyIRI = IRI.create("http://www.semanticweb.org/mateiupatricia/ontologies/" + name + "_ontology");
@@ -346,7 +345,7 @@ public class RCA_algorithm {
         List<Concept> mainLatticeConcepts = new ArrayList<>(mainLattice.getConcepts());
 
         int j;
-        int threadsNr = 32;
+        int threadsNr = 8;
         OntologyThread[] threads = new OntologyThread[threadsNr];
 
         for(Entity e : mainLattice.getTop().getExtent()){
@@ -389,6 +388,43 @@ public class RCA_algorithm {
         }
 
 
+        for(Facet f: objProp.keySet()){
+            if(objProp.get(f).contains(f.getValue())){
+                reflexive.add(f.getType());
+            }
+            for(String val : objProp.get(f)){
+                for(Facet ff: objProp.keySet()){
+                    if(!f.equals(ff) && f.getType().equals(ff.getType()) && ff.getValue().equals(val) && objProp.get(ff).contains(f.getValue())){
+                        symmetric.add(f.getType());
+                    }
+                }
+            }
+            for(Facet ff : objProp.keySet()){
+                if(!f.equals(ff) && f.getType().equals(ff.getType())){
+                    List<String> aux = new ArrayList<>(objProp.get(f));
+                    aux.retainAll(objProp.get(ff));
+                    if(!aux.isEmpty()){
+                        nonfunctional.add(f.getType());
+                    }
+                }
+                if(!f.equals(ff) && f.getType().equals(ff.getType()) && (objProp.get(f).size() > 1 || objProp.get(ff).size() > 1)){
+                    nonInverseFunctional.add(f.getType());
+                }
+            }
+
+        }
+
+
+        for(Facet f: objProp.keySet()){
+            if(!reflexive.contains(f.getType())){
+                irreflexive.add(f.getType());
+            }
+            if(!symmetric.contains(f.getType())){
+                asymmetric.add(f.getType());
+            }
+        }
+
+
         for(String s : objectProperties.keySet()){
             if(symmetric.contains(s)){
                 OWLAxiom axiom = factory.getOWLSymmetricObjectPropertyAxiom(objectProperties.get(s));
@@ -398,11 +434,11 @@ public class RCA_algorithm {
                 OWLAxiom axiom = factory.getOWLAsymmetricObjectPropertyAxiom(objectProperties.get(s));
                 ontologyManager.addAxiom(ontology, axiom);
             }
-            if(functional.contains(s)){
+            if(!nonfunctional.contains(s)){
                 OWLAxiom axiom = factory.getOWLFunctionalObjectPropertyAxiom(objectProperties.get(s));
                 ontologyManager.addAxiom(ontology, axiom);
             }
-            if(inverseFunctional.contains(s)){
+            if(!nonInverseFunctional.contains(s)){
                 OWLAxiom axiom = factory.getOWLInverseFunctionalObjectPropertyAxiom(objectProperties.get(s));
                 ontologyManager.addAxiom(ontology, axiom);
             }
@@ -477,7 +513,7 @@ public class RCA_algorithm {
            manager = OWLManager.createOWLOntologyManager();
            o = manager.loadOntologyFromOntologyDocument(new File(ontology));
            System.out.println("Loaded ontology: " + o.getOntologyID());
-           OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+           OWLReasonerFactory reasonerFactory = new ReasonerFactory();
            shortFormProvider = new SimpleShortFormProvider();
            Set<OWLOntology> importsClosure = o.getImportsClosure();
            BidirectionalShortFormProvider bsp =  new BidirectionalShortFormProviderAdapter(manager, importsClosure, shortFormProvider);
